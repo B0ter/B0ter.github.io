@@ -4,35 +4,6 @@
   
     
     <entry>
-      <title>记一次Edusrc证书站漏洞挖掘</title>
-      <link href="/post/83d8f81e68704c83965e89508d7147f9/"/>
-      <url>/post/83d8f81e68704c83965e89508d7147f9/</url>
-      
-        <content type="html"><![CDATA[<meta name="referrer" content="no-referrer" /><h1 id="一、信息收集"><a href="#一、信息收集" class="headerlink" title="一、信息收集"></a>一、信息收集</h1><p>对于挖此证书站，我没有做过多的信息收集，全靠耐心和细心，花了半天时间拿下。</p><p>首先在零零信安上，这样搜索。</p><p><img src="https://s1.vika.cn/space/2023/03/06/83d8f81e68704c83965e89508d7147f9" alt=" "></p><p>把每个资产都点一遍，看看有什么漏网之鱼</p><p>于是我就找到了这样的网站，是个门户网站</p><p><img src="https://s1.vika.cn/space/2023/03/06/1604cbdacf4c4ad7add44611a27536bc" alt=" "></p><p>先别急，看到网页末尾，总会有收获</p><p>可以看到有很多系统，按经验我先测旧系统，一般出漏洞的概率大一些</p><p><img src="https://s1.vika.cn/space/2023/03/06/244afcd6fdc4485a903ed73cdceda377" alt=" "></p><h1 id="二、漏洞挖掘"><a href="#二、漏洞挖掘" class="headerlink" title="二、漏洞挖掘"></a>二、漏洞挖掘</h1><h2 id="（一）口令穷举"><a href="#（一）口令穷举" class="headerlink" title="（一）口令穷举"></a>（一）口令穷举</h2><p><img src="https://s1.vika.cn/space/2023/03/06/f65bdff4299e4184a1a4b367c1731e27" alt=" "></p><p>测试常规弱口令，无果</p><p>没有验证码那就爆破口令，爆了4分钟才爆出来，test2&#x2F;1qaz2wsx（本文所有漏洞已修复）</p><p><img src="https://s1.vika.cn/space/2023/03/06/e1adffe80e714db69207af02f53648b4" alt=" "></p><h2 id="（二）SSRF"><a href="#（二）SSRF" class="headerlink" title="（二）SSRF"></a>（二）SSRF</h2><p>进入后台就很激动，但是先不要急，因为我对后台测试一番后，并没有找到实际有危害的漏洞</p><p>这时细心的我，就把注意转到登录的过程，我重新登录一下，并且去观察刚登录时所请求的数据包，果然发现了一些猫腻，查看bp的<code>history</code></p><p><img src="https://s1.vika.cn/space/2023/03/07/30714dba315f4a6eb95bbba8020ba421" alt=" "></p><p>看到<code>main?=yuanjianurl=</code>我就想到<code>url</code>重定向</p><p><img src="https://s1.vika.cn/space/2023/03/07/398e4ca8972043b59ef4544d3d362353" alt=" "></p><p>果然成功请求了百度，但是它没有它没有重定向跳转<code>url</code>,也就是说搜索栏的<code>url</code>地址没有改变，可能存在<code>SSRF</code>。还有一种判断方法就是，看请求包里面有没有<code>host</code>为<code>baidu.com</code>的请求，如有则不是<code>SSRF</code></p><p>很明显，没有</p><p><img src="https://s1.vika.cn/space/2023/03/07/f623f84f9f6f41d8b9d1cad320d0a38b" alt="image-20230307103126422"></p><p>果不其然，可利用<code>file</code>协议任意读取文件</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">main?yuanjianyurl=file:<span class="comment">///etc/passwd</span></span><br></pre></td></tr></table></figure><p>看到用户名，权限及其工作路径</p><p><img src="https://s1.vika.cn/space/2023/03/07/dab26c7d782e41ac8018208d3e828ffb" alt=" "></p><p>看到主机系统</p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">main?yuanjianyurl=file:<span class="comment">///etc/issue</span></span><br></pre></td></tr></table></figure><p><img src="https://s1.vika.cn/space/2023/03/07/676c6aa80edd4bdfad8fd7e43fd1a23a" alt=" "></p><p>再遍历一下</p><p><img src="https://s1.vika.cn/space/2023/03/07/2bfb2d2b23224735ba11d32965f17e1a" alt=" "></p><h3 id="探测内网"><a href="#探测内网" class="headerlink" title="探测内网"></a>探测内网</h3><p><img src="https://s1.vika.cn/space/2023/03/07/ce071bb72c894a2a80c803ac50d3aa07" alt=" "></p><p>非常灵敏啊，啪得一下就出来了</p><p><img src="https://s1.vika.cn/space/2023/03/07/8f5e4b01035e4f28a570cbabad265f0b" alt=" "></p><p>这里我用<code>dict</code>，<code>http</code>协议探测端口，它都没有回显，<code>ssrf</code>的各种伪协议、读源码、扫内网没法玩啊，食之无味弃之可惜，又担心风险，就不敢硬刚了。</p><p>这里无回显可以通过响应时间，还有DNSlog去探测。</p><h2 id="（三）CSRF-未授权访问"><a href="#（三）CSRF-未授权访问" class="headerlink" title="（三）CSRF+未授权访问"></a>（三）CSRF+未授权访问</h2><p>细心的我，又发现了一个可获取敏感数据的<code>CSRF</code>，也是在上面的数据包中</p><p><img src="https://s1.vika.cn/space/2023/03/07/acb3aeb7f2ec49a093148c1ea5fa131f" alt=" "></p><p>哦豁，可以劫持账号密码</p><p>然后分析发现，返回的数据对应cookie中的<code>fxl_sjtu_username</code>和<code>fxl_sjtu_password</code>，也就是说只要他们合法正确存在就能够解码出来，而且还存在未授权访问，把<code>jsessionid</code>删除了也能利用</p><p><img src="https://s1.vika.cn/space/2023/03/07/97081ea9ed9944038dd4365a13935136" alt=" "></p><p>需要注意的是，在这个系统只要用户在浏览器登录过，就会留下<code>fxl_sjtu_username</code>，<code>fxl_sjtu_password</code>字段信息，所以即使不登录也可以劫持账号密码</p><p>未登录</p><p><img src="https://s1.vika.cn/space/2023/03/07/d8c2d7ae25ba44f58a4edae8ff2c9791" alt=" "></p><p>仍然可以劫持账号密码</p><p><img src="https://s1.vika.cn/space/2023/03/07/6f788a4e4a304c1a8b3175e4afa3b6fa" alt=" "></p><h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>1、检查每个功能的的网络数据请求，尤其是登录</p><p>2、<code>SSRF</code>无回显可以通过响应时间，还有<code>DNSlog</code>去探测</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Web </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> SSRF </tag>
-            
-            <tag> CSRF </tag>
-            
-            <tag> 未授权访问 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>记一次校园网站漏洞通杀</title>
       <link href="/post/5c020f8dd96c445d868e1f15627be035/"/>
       <url>/post/5c020f8dd96c445d868e1f15627be035/</url>
